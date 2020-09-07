@@ -33,27 +33,29 @@ function void_select(){
 // INSERT
 function void_insert(){
 	$additive[] = "INSERT INTO `" . func_get_args()[0] . "` (";
+	$bdditive[] = '';
 	
-	$col_key = func_get_args()[1];
-	$col_value = func_get_args()[2];
-
-	foreach ($col_key as $current_key){
+	$arrayi = func_get_args()[1];
+	
+	foreach ($arrayi as $current_key => $current_val){
 		$additive[] = '`' . $current_key . '`';
 		$additive[] = ',';
+		
+		$bdditive[] = "'" . $current_val . "'";
+		$bdditive[] = ',';
 	}
 	array_pop ($additive);
-	$additive[] = ')';
-	$additive[] = ' VALUES (';
+	array_pop ($bdditive);
 	
-	foreach ($col_value as $current_value){
-		$additive[] = "'" . $current_value . "'";
-		$additive[] = ',';
-	}
-	array_pop ($additive);
-	$additive[] = ');';
+	$additive[] = ') VALUES (';	
+	$bdditive[] = ');';
 	
 	$string_additive = '';
+	
 	foreach($additive as $current)
+		$string_additive = $string_additive . $current;
+	
+	foreach($bdditive as $current)
 		$string_additive = $string_additive . $current;
 	
 	return $string_additive;
@@ -64,12 +66,9 @@ function void_update(){
 	$additive[] = "UPDATE `" . func_get_args()[0] . "` SET ";
 	 
 	$id = func_get_args()[1];
-	$col_key = func_get_args()[2];
-	$col_value = func_get_args()[3];
-
-	$counts = count($col_key);
-	for ($i=0; $i<$counts; $i++){
-		$additive[] = "`" . $col_key[$i] . "`='" . $col_value[$i] . "'";
+	$arrayu = func_get_args()[2];
+	foreach ($arrayu as $current_key => $current_val){
+		$additive[] = "`" . $current_key . "`='" . $current_val . "'";
 		$additive[] = ',';
 	}
 	array_pop ($additive);
