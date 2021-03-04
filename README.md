@@ -1,5 +1,5 @@
 # isu
-Insert, select, update string creator for SQL
+Insert, select, update string constructor for SQL
 
 void_reference_string() - функция, формирующая справочный запрос, для оформления страницы и паджинейшна.
 
